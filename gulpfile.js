@@ -105,11 +105,36 @@ gulp.task('upload', function() {
 
 });
 
+gulp.task('test-invoke', function() {
+  var lambda = new AWS.Lambda();
+
+  var params = {
+    FunctionName: functionName,
+    InvocationType: 'Event',
+    LogType: 'Tail',
+    Payload: '{ "key1" : "name" }'
+  };
+
+  lambda.getFunction({ FunctionName: functionName }, function(err, data) {
+    if (err) console.log("FUNCTION NOT FOUND", err);
+    else invokeFunction();
+  });
+
+  function invokeFunction() {
+    lambda.invoke(params, function(err, data) {
+      if (err) console.log(err, err.stack);
+      else console.log(data);
+    })
+  }
+})
+
+
 gulp.task('deploy', function (callback) {
   return runSequence(
     ['js', 'node-mods'],
     ['zip'],
     ['upload'],
+    ['test-invoke'],
     callback
   );
 });
