@@ -110,7 +110,7 @@ gulp.task('test-invoke', function() {
 
   var params = {
     FunctionName: functionName,
-    InvocationType: 'Event',
+    InvocationType: 'RequestResponse',
     LogType: 'Tail',
     Payload: '{ "key1" : "name" }'
   };
