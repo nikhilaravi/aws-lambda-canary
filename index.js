@@ -4,6 +4,6 @@ var config = require('./lib/config');
 exports.handler = function (event, context) {
   config.init(context, function (err, config) {
     if (err) context.fail(err);
-    context.succeed(event.key1);
+    context.succeed(starwars());
   });
 }
