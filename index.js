@@ -6,4 +6,4 @@ exports.handler = function (event, context) {
     if (err) context.fail(err);
     context.succeed(starwars());
   });
-}
+};
